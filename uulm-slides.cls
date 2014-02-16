@@ -111,6 +111,7 @@
 % Font Theme
 \usepackage{helvet}
 \setbeamerfont{author}{size=\footnotesize}
+\setbeamerfont{coauthor}{size=\footnotesize}
 \setbeamerfont{affiliation}{size=\footnotesize}
 \setbeamerfont{subtitle}{size=\footnotesize}
 \setbeamerfont{title}{size=\Large}
@@ -218,6 +219,9 @@ SmallCapsFont={Arial}
     \fi% /header
 }
 
+\def\@coauthors{}
+\newcommand\coauthors[1]{\def\@coauthors{#1}}
+
 \def\@affiliation{}
 \newcommand\affiliation[1]{\def\@affiliation{#1}}
 
@@ -248,7 +252,17 @@ SmallCapsFont={Arial}
     \begin{beamercolorbox}[left,leftskip=-0.075\paperwidth,wd=.385\paperwidth]{author}
 	\usebeamerfont{author}\insertauthor
 	\ifthenelse{\equal{\@affiliation}{}}{% no affiliation specified
+		\ifthenelse{\equal{\@coauthors}{}}{%no co-authors specified
+		}{% include co-authors
+        	\vskip3pt
+		\usebeamerfont{coauthor}\@coauthors
+		}
 	}{% include affiliation
+		\ifthenelse{\equal{\@coauthors}{}}{%no co-authors specified
+		}{% include co-authors
+		\vskip3pt
+		\usebeamerfont{coauthor}\@coauthors
+		}
         	\vskip1pt
 		\usebeamerfont{affiliation}\@affiliation
 	}
